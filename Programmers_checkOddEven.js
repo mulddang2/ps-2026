@@ -11,7 +11,7 @@
  *
  */
 function solution(n) {
-  const isOdd = n % 2 === 1;
+  const isOdd = n % 2 !== 0;
   let answer = 0;
 
   for (let i = n; i > 0; i -= 2) {
