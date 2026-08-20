@@ -1,4 +1,4 @@
-/** FIXME:
+/** NOTE:
  *  [x] filter를 부수효과용 순회로 쓰지 않기 → 반환값을 쓰지 않을 거면 forEach 또는 for...of
     [x] "분리"가 목적이면 filter 두 번으로 의도를 드러내기
     [x] 콜백에서 사용하지 않는 파라미터(i) 제거하기
@@ -9,7 +9,7 @@
  */
 
 function solution(num_list) {
-  const toNumber = (arr) => Number(arr.join(""));
+  const toNumber = (arr) => Number(arr.join(''));
   const odds = [];
   const evens = [];
 

@@ -1,4 +1,4 @@
-/** FIXME:
+/** NOTE:
  * [x] if (mode === 0) / if (mode === 1) 두 블록을 else if로 연결하기
  * [x] continue 제거 — else if로 바꾸면서 불필요해짐
  * [x] 분기 기준을 mode가 아니라 code[i] === "1"로 바꾸기
@@ -13,11 +13,11 @@ function solution(code) {
   const ret = [];
   for (let i = 0; i < code.length; i++) {
     const ch = code[i];
-    if (ch === "1") {
+    if (ch === '1') {
       mode = mode === 0 ? 1 : 0;
     } else if (i % 2 === mode) {
       ret.push(ch);
     }
   }
-  return ret.length ? ret.join("") : "EMPTY";
+  return ret.length ? ret.join('') : 'EMPTY';
 }

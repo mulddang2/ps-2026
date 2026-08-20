@@ -1,4 +1,4 @@
-/** FIXME:
+/** NOTE:
  * [x] 마지막 if(uniqueParamCount === 3) 조건 제거
  * [x] 변수명 수정 uniqueParamCount, sumOfTwoSquares
  * [x] 분기 순서를 3 -> 2 -> 1로 뒤집기

@@ -1,4 +1,4 @@
-/** FIXME:
+/** NOTE:
  * [x] 중간 배열 제거
  */
 function solution(a, d, included) {
