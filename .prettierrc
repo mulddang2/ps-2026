@@ -1,5 +1,6 @@
 {
   "singleQuote": true,
   "jsxSingleQuote": true,
-  "quoteProps": "consistent"
+  "quoteProps": "consistent",
+  "endOfLine": "auto"
 }
