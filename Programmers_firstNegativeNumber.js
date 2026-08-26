@@ -1,8 +1,8 @@
+/** NOTE:
+ * [x] findIndex로 축약해보기
+ */
 function solution(num_list) {
-  for (let i = 0; i < num_list.length; i++) {
-    if (num_list[i] < 0) return i;
-  }
-  return -1;
+  return num_list.findIndex((v) => v < 0);
 }
 
 console.log(solution([12, 4, 15, 46, 38, -2, 15]));
