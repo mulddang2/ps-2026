@@ -1,15 +1,22 @@
+/** NOTE:
+ * [x] 홀수 인덱스의 조건문 불필요 (query[i] < numArr.length 제안사항에 보장되어 있음)
+ * [x] [...arr] 복사가 불필요 -- slice()는 항상 새 배열을 반환하므로 원본 arr는 절대 변형되지 않는다. let numArr=arr로 충분
+ */
+
 function solution(arr, query) {
-  let numArr = [...arr];
-  for (let i = 0; i < query.length; i++) {
+  let left = 0;
+  let right = arr.length - 1;
+
+  query.forEach((q, i) => {
     if (i % 2 === 0) {
-      numArr = numArr.slice(0, query[i] + 1);
+      // 짝수 인덱스: query[i]번 인덱스 뒷부분을 버린다.
+      right = left + q;
     } else {
-      if (query[i] !== 0 && query[i] < numArr.length) {
-        numArr = numArr.slice(query[i]);
-      }
+      // 홀수 인덱스: query[i]번 인덱스 앞부분을 버린다.
+      left = left + q;
     }
-  }
-  return numArr;
+  });
+  return arr.slice(left, right + 1);
 }
 
 console.log(solution([0, 1, 2, 3, 4, 5], [4, 1, 2]));
