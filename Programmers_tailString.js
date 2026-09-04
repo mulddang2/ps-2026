@@ -1,5 +1,8 @@
+/** NOTE:
+ * [x] filter + join 사용해보기
+ */
 function solution(str_list, ex) {
-  return str_list.map((v) => (!v.includes(ex) ? v : '')).join('');
+  return str_list.filter((v) => !v.includes(ex)).join('');
 }
 
 console.log(solution(['abc', 'def', 'ghi'], 'ef'));
