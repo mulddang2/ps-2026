@@ -1,13 +1,19 @@
-function solution(arr) {
-  let result = 0;
+/** NOTE:
+ * [x] 탐색 범위 최적화하기 -- 1) 대각선 부분 i = j 인덱스 비교 제외 2) 안쪽 루프 j의 시작 인덱스를 i + 1로 설정하여 중복 검사 방지
+ * [x] 불필요한 변수 대입 제거 -- 1) 삼항 연산자 결과를 저장하는 임시변수 제거하기 2) 불일치 조건 발생 시 즉시 return 0을 수행하도록 단순화하기
+ * [x] 변수 접근 및 반환값 단순화 -- 반복문 외부 result 변수 선언 제거, 전체 루프 무사 통과 시 루프 바깥에서 바로 1 반환하기
+ *
+ */
 
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr.length; j++) {
-      result = arr[i][j] === arr[j][i] ? 1 : 0;
-      if (result === 0) return 0;
+function solution(arr) {
+  const n = arr.length;
+
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      if (arr[i][j] !== arr[j][i]) return 0;
     }
   }
-  return result;
+  return 1;
 }
 
 console.log(
