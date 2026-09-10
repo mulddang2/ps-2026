@@ -1,14 +1,8 @@
+/** NOTE:
+ * [x] 중첩 배열 생성 및 불필요한 연산 삭제
+ */
 function solution(A, B) {
-  const arrA = [...A];
-  let count = 0;
-  for (let i = 0; i < arrA.length; i++) {
-    if (A === B) return 0;
-
-    arrA.unshift(arrA.splice(-1, 1));
-    count++;
-    if (arrA.flat().join('') === B) return count;
-  }
-  return -1;
+  return (B + B).indexOf(A);
 }
 
 console.log(solution('hello', 'ohell'));
