@@ -1,5 +1,8 @@
+/** NOTE:
+ * [x] 문자열을 10번 순회하지 않고, 정규표현식 활용 시, 1번의 스캔으로 모든 영단어를 숫자로 치환가능
+ */
 function solution(numbers) {
-  const numObj = {
+  const numMap = {
     zero: 0,
     one: 1,
     two: 2,
@@ -12,11 +15,12 @@ function solution(numbers) {
     nine: 9,
   };
 
-  Object.entries(numObj).forEach(([key, value]) => {
-    numbers = numbers.replaceAll(key, value);
-  });
-
-  return Number(numbers);
+  return Number(
+    numbers.replace(
+      /zero|one|two|three|four|five|six|seven|eight|nine/g,
+      (match) => numMap[match],
+    ),
+  );
 }
 
 console.log(solution('onetwothreefourfivesixseveneightnine'));
