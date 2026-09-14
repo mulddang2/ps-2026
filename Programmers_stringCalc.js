@@ -1,15 +1,17 @@
+/** NOTE:
+ * [x] 반복문 스텝 제어 수정 (i += 2)
+ */
 function solution(my_string) {
-  const split = my_string.split(' ');
+  const tokens = my_string.split(' ');
 
-  let result = +split[0];
+  let result = Number(tokens[0]);
 
-  for (let i = 1; i < split.length; i++) {
-    if (split[i] === '+' || split[i] ==='-') {
-      if (split[i] === '+') {
-        result += +split[i + 1];
-      } else {
-        result -= +split[i + 1];
-      }
+  // 연산자가 위치한 홀수 인덱스만 2씩 증가하며 순회
+  for (let i = 1; i < tokens.length; i += 2) {
+    if (tokens[i] === '+') {
+      result += Number(tokens[i + 1]);
+    } else {
+      result -= Number(tokens[i + 1]);
     }
   }
   return result;
