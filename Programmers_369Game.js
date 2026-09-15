@@ -1,11 +1,17 @@
-function solution(order) {
-  const orderStr = order.toString();
-  let count = 0;
+/** NOTE:
+ * [x] 수학적 연산 활용 -- 힙 메모리 할당 제로, 메모리 초과 위험으로부터 안전함
+ */
 
-  for (const o of orderStr) {
-    if (o === '3' || o === '6' || o === '9') {
-      count += 1;
+function solution(order) {
+  let count = 0;
+  let num = order;
+
+  while (num > 0) {
+    const digit = num % 10;
+    if (digit === 3 || digit === 6 || digit === 9) {
+      count++;
     }
+    num = Math.floor(num / 10);
   }
   return count;
 }
