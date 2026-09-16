@@ -1,15 +1,17 @@
 function solution(chicken) {
-  const order = chicken;
-  let temp = 1;
-  let count = 0;
-  while (chicken > 0) {
-    if (chicken === 1) break;
-    chicken = Math.floor(chicken / 10);
-    temp = temp * chicken;
-    count += chicken;
+  let newChicken = 0;
+  let total = 0;
+  let extraCoupon = 0;
+  let serviceChicken = 0;
+
+  while (chicken >= 10) {
+    newChicken = Math.floor(chicken / 10);
+    extraCoupon = chicken % 10;
+    total = newChicken + extraCoupon;
+    serviceChicken += newChicken;
+    chicken = total;
   }
-  (order - temp) % 10 === 0 ? count : count++;
-  return count;
+  return newChicken;
 }
 
 console.log(solution(100));
