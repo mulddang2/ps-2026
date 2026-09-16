@@ -1,13 +1,9 @@
 function solution(id_pw, db) {
-  let result = '';
-  db.forEach((v) => {
-    if (v[0] === id_pw[0] && v[1] === id_pw[1]) {
-      result = 'login';
-    } else if (v[0] === id_pw[0] && v[1] !== id_pw[1]) {
-      result = 'wrong pw';
-    } else if (v[0] !== id_pw[0]) result = 'fail';
-  });
-  return result;
+  for (const [id, pw] of db) {
+    if (id === id_pw[0] && pw === id_pw[1]) return 'login';
+    if (id === id_pw[0] && pw !== id_pw[1]) return 'wrong pw';
+  }
+  return 'fail';
 }
 
 console.log(
