@@ -1,13 +1,10 @@
+/** NOTE:
+ * [x] 불필요한 나눗셈 연산 제거하기 --> 평균값 계산 대신 점수의 총합 활용하여 부동소수점 오차 가능성 없애기
+ * [x] 정렬 과정 없이 자신보다 총합이 높은 학생의 수에 1을 더해 등수 구하기
+ * [x] 임시 배열 생성 축소하기
+ */
 function solution(score) {
-  const average = score.map(([a, b]) => (a + b) / 2);
-  const sortedArr = [...average].sort((a, b) => b - a);
-  const result = new Array(average.length);
-
-  for(let i = 0; i < average.length; i++) {
-    result[i] = sortedArr.indexOf(average[i]) + 1
-  }
-
-  return result;
+  return score.map((a) => score.filter((b) => b[0] + b[1] > a[0] + a[1]).length + 1);
 }
 
 console.log(
