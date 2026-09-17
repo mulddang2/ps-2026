@@ -1,6 +1,8 @@
+/** NOTE:
+ * [x] 불필요한 변수 선언 줄이기
+ */
 function solution(my_string) {
-  const setObj = new Set(my_string);
-  return [...setObj].join('')
+  return [...new Set(my_string)].join('');
 }
 
 console.log(solution('people'));
