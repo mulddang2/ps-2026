@@ -1,20 +1,14 @@
+/** NOTE:
+ * [x] 반복문 사용 전 대수적 계산식 도출하기
+ * [x] sort 대신 Math.min 활용하기
+ * [x] for 루프 제거 및 상수시간 연산(O(1)) 적용하기
+ */
 function solution(sides) {
-  // 1. 두 변 구분하기
-  sides.sort((a, b) => a - b);
-  const min = sides[0];
-  const max = sides[1];
-  // 2. 개수 세기
-  let count = 0;
-  // case 1:기존 변 중 Max가 가장 긴 변인 경우
-  for (let c = 1; c < min + max; c++) {
-    if (c <= max && max < min + c) {
-      count++;
-      // case 2: 새로운 c가 가장 긴 변인 경우
-    } else if (max < c && c < min + max) {
-      count++;
-    }
-  }
-  return count;
+  const [sideA, sideB] = sides;
+
+  const minSide = Math.min(sideA, sideB);
+
+  return minSide * 2 - 1;
 }
 
 console.log(solution([1, 2]));
