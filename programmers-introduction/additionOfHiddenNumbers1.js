@@ -1,5 +1,11 @@
+/** NOTE:
+ * [x] match 결과가 null일 경우 빈 배열 대체하여 TypeError 방지하기
+ */
 function solution(my_string) {
-  return my_string.match(/\d/g).reduce((acc, cur) => acc + Number(cur), 0);
+  return (my_string.match(/\d/g) || []).reduce(
+    (acc, cur) => acc + Number(cur),
+    0,
+  );
 }
 
 console.log(solution('aAb1B2cC34oOp'));
