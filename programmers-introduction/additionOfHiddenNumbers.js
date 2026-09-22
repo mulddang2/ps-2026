@@ -3,7 +3,7 @@ function solution(my_string) {
 
   const filterNum = strNum.split(' ').filter((v) => !(v === ''));
 
-  return filterNum.length === 0 ? 0 : filterNum.reduce((acc, cur) => +acc + +cur);
+  return filterNum.length === 0 ? 0 : filterNum.reduce((acc, cur) => +acc + +cur , 0);
 }
 
 console.log(solution('aAb1B2cC34oOp'));
