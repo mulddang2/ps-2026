@@ -1,20 +1,10 @@
 function solution(numbers) {
-  let tempMax = 0;
-  const temp = Math.max(...numbers);
-  let max = 0;
-  const tempArr2 = numbers.filter((v) => v < temp);
+  // 오름차순 정렬
+  numbers.sort((a, b) => a - b);
 
-
-  // 둘다 음수 일 때
-  const [a, b] = numbers.filter((v) => v < 0);
-  if (a && b) {
-    tempMax = a * b;
-
-  } else {
-    // max 보다 작은것 중에 가장 큰것
-    max = temp * Math.max(...tempArr2);
-  }
-  return tempMax < max ? max : tempMax
+  const n = numbers.length;
+  // 가장 작은 두 음수의 곱 vs 가장 큰 두 양수의 곱
+  return Math.max(numbers[0] * numbers[1], numbers[n - 1] * numbers[n - 2]);
 }
 
 console.log(solution([1, 2, -3, 4, -5]));
