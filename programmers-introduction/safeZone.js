@@ -1,45 +1,40 @@
 function solution(board) {
-  const safeBoard = board.map((row) => [...row]);
-  const dir = [
-    [-1, -1],
-    [-1, 0],
-    [-1, 1],
-    [0, -1],
-    [0, 1],
-    [1, -1],
-    [1, 0],
-    [1, 1],
-  ];
+  const n = board.length;
+  let safeCount = 0;
 
-  // 1이 있는 위치 찾기
-  const N = safeBoard.length;
-
-  for (let i = 0; i < N; i++) {
-    for (let j = 0; j < N; j++) {
-      if (board[i][j] === 1) {
-        for (const [dr, dc] of dir) {
-          const ni = i + dr;
-          const nj = j + dc;
-          if (ni >= 0 && ni < N && nj >= 0 && nj < N) {
-            safeBoard[ni][nj] = 2;
-          }
-        }
+  for (let r = 0; r < n; r++) {
+    for (let c = 0; c < n; c++) {
+      if (isSafe(board, r, c, n)) {
+        safeCount++;
       }
     }
   }
-
-  let count = 0;
-  for (let i = 0; i < N; i++) {
-    for (let j = 0; j < N; j++) {
-      if (safeBoard[i][j] === 0) {
-        count++;
-      }
-    }
-  }
-  return count;
+  return safeCount;
 }
 
-console.log(solution([[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 0, 0]]))
+function isSafe(board, r, c, n) {
+  for (let dr = -1; dr <= 1; dr++) {
+    for (let dc = -1; dc <= 1; dc++) {
+      const nr = r + dr;
+      const nc = c + dc;
+
+      if (nr >= 0 && nr < n && nc >= 0 && nc < n) {
+        if (board[nr][nc] === 1) return false;
+      }
+    }
+  }
+  return true;
+}
+
+console.log(
+  solution([
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0],
+  ]),
+);
 console.log(
   solution([
     [0, 0, 0, 0, 0],
@@ -49,4 +44,13 @@ console.log(
     [0, 0, 0, 0, 0],
   ]),
 );
-console.log(solution([[1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1]]))
+console.log(
+  solution([
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1],
+  ]),
+);
