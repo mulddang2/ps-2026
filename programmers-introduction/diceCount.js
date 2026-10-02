@@ -1,5 +1,10 @@
+/** NOTE:
+ * 1. 명시적 산술 연산으로 개선해보기
+ */
 function solution(box, n) {
-  return box.map((v) => Math.floor(v / n)).reduce((acc, cur) => acc * cur, 1);
+  return (
+    Math.floor(box[0] / n) * Math.floor(box[1] / n) * Math.floor(box[2] / n)
+  );
 }
 
 console.log(solution([1, 1, 1], 1));
