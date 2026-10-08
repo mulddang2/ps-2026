@@ -1,16 +1,27 @@
 function solution(array) {
-  const count = [];
-  const result = [];
-  for (let i = 0; i < array.length; i++) {
-    count.push(array.filter((n) => n === array[i]).length);
-  }
-  const max = Math.max(...count);
+  const countMap = new Map();
 
-  for (let i = 0; i < count.length; i++) {
-    if (count[i] === max) result.push(array[i]);
+  // 1. 빈도수 카운트
+  for (const num of array) {
+    countMap.set(num, (countMap.get(num) || 0) + 1);
   }
-  const uniqueArr = [...new Set(result)];
-  return uniqueArr.length === 1 ? uniqueArr[0] : -1;
+
+  let maxCount = 0; // 지금까지 발견된 가장 높은 빈도수
+  let maxNum = -1; // 가장 자주 나온 숫자
+  let isMultiple = false; // 최빈값이 여러개면 true
+
+  // 2. 중복 제거한 원소수로 최빈값 탐색
+  for (const [num, count] of countMap) {
+    if (count > maxCount) {
+      maxCount = count;
+      maxNum = num;
+      isMultiple = false;
+    } else if (count === maxCount) {
+      isMultiple = true;
+    }
+  }
+
+  return isMultiple ? -1 : maxNum;
 }
 
 console.log(solution([1, 2, 3, 3, 3, 4]));
