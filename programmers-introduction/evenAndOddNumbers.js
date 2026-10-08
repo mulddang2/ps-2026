@@ -1,16 +1,13 @@
+/** NOTE:
+ * [x] for...of와 인덱스 산술 연산 활용
+ */
 function solution(num_list) {
-  let even = 0;
-  let odd = 0;
+  const answer = [0, 0];
 
-  for (let i = 0; i < num_list.length; i++) {
-    if (num_list[i] % 2 === 0) {
-      even++;
-    } else {
-      odd++;
-    }
+  for (const num of num_list) {
+    answer[num % 2]++;
   }
-
-  return [even, odd];
+  return answer;
 }
 
 console.log(solution([1, 2, 3, 4, 5]));
