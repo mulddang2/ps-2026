@@ -1,9 +1,8 @@
+const gcd = (a, b) => (b === 0 ? a : gcd(b, a % b));
+
 function solution(n) {
-  let total = 1;
-  while ((6 * total) % n !== 0) {
-    total += 1;
-  }
-  return total;
+  // 최소공배수 = a * b / (a,b의 최대공약수)
+  return n / gcd(6, n);
 }
 
 console.log(solution(6));
