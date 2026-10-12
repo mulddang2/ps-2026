@@ -1,10 +1,9 @@
+/** NOTE:
+ * [x] 불필요한 변수 제거하기
+ */
 function solution(n) {
-  let x = 1;
   for (let i = 2; i < n; i++) {
-    if (n % i === 1) {
-      x = i;
-      return x;
-    }
+    if (n % i === 1) return i;
   }
 }
 
