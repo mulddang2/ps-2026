@@ -1,11 +1,5 @@
 function solution(n) {
-  const result = [];
-  let i = 1;
-  while (i <= n) {
-    result.push(i);
-    i += 2;
-  }
-  return result;
+  return Array.from({ length: Math.ceil(n / 2) }, (_, i) => i * 2 + 1);
 }
 
 console.log(solution(10));
