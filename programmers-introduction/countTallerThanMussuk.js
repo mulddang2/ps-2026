@@ -1,11 +1,8 @@
+/** NOTE:
+ * [x] filter 활용해보기
+ */
 function solution(array, height) {
-  let count = 0;
-
-  for (const h of array) {
-    if (h > height) count++;
-  }
-
-  return count;
+  return array.filter((v) => v > height).length;
 }
 
 console.log(solution([149, 180, 192, 170], 167));
