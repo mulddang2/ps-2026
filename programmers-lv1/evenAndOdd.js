@@ -1,6 +1,8 @@
+/** NOTE:
+ * [x] 삼항 연산자 활용하기
+ */
 function solution(num) {
-  if (num % 2 === 0) return 'Even';
-  return 'Odd';
+  return num % 2 ? 'Odd' : 'Even';
 }
 
 console.log(solution(3));
