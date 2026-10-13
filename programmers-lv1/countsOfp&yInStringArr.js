@@ -1,12 +1,19 @@
+/** NOTE:
+ * [x] 단일 순회 카운터로 최적화 하기
+ */
 function solution(s) {
-  let p = 0,
-    y = 0;
+  let count = 0;
 
-  for (const c of s.toLowerCase()) {
-    if (c === 'p') p++;
-    if (c === 'y') y++;
+  for (let i = 0; i < s.length; i++) {
+    const char = s[i];
+    if (char === 'p' || char === 'P') {
+      count++;
+    } else if (char === 'y' || char === 'Y') {
+      count--;
+    }
   }
-  return p === y;
+
+  return count === 0;
 }
 
 console.log(solution('pPoooyY'));
