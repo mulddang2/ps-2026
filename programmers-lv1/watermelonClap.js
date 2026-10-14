@@ -1,12 +1,8 @@
+/** NOTE:
+ * [x] c++레벨 내장 메서드 활용 -- repeat, slice
+ */
 function solution(n) {
-  let answer = '';
-
-  for (let i = 0; i < n; i++) {
-    if (i % 2 === 0) answer += '수';
-    else answer += '박';
-  }
-
-  return answer;
+  return '수박'.repeat(Math.ceil(n / 2)).slice(0, n);
 }
 
 console.log(solution(3));
