@@ -1,22 +1,17 @@
+/** NOTE:
+ * [x] 어떤 수의 약수의 개수가 홀수 개인 경우는 오직 제곱수일 때 뿐이다.!!
+ */
 function solution(left, right) {
   let total = 0;
-  for (let i = left; i <= right; i++) {
-    let count = 0;
-    let j = 1;
-    while (j <= Math.sqrt(i) + 1) {
-      if (i % j === 0) {
-        if (j * j !== i) {
-          count += 2;
-        } else {
-          count++;
-        }
-      }
-      j++;
-    }
-    count % 2 === 0 ? (total += i) : (total -= i);
-  }
 
-  return total;
+  for (let i = left; i <= right; i++) {
+    // 제곱수인 경우 약수의 개수가 홀수이므로 뺀다
+    if (Number.isInteger(Math.sqrt(i))) {
+      total -= i;
+    } else {
+      total += i;
+    }
+  }
 }
 
 console.log(solution(13, 17));
