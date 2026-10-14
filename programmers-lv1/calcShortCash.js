@@ -1,12 +1,9 @@
+/** NOTE:
+ * [x] 등차수열의 합 공식으로 풀어보기
+ */
 function solution(price, money, count) {
-  let curPrice = 0;
-
-  let i = 1;
-  while (i <= count) {
-    curPrice += price * i;
-    i++;
-  }
-  return curPrice <= money ? 0 : curPrice - money;
+  const totalPrice = (price * count * (count + 1)) / 2;
+  return totalPrice > money ? totalPrice - money : 0;
 }
 
 console.log(solution(3, 20, 4));
