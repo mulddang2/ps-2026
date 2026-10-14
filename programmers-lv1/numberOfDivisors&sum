@@ -1,0 +1,23 @@
+function solution(left, right) {
+  let total = 0;
+  for (let i = left; i <= right; i++) {
+    let count = 0;
+    let j = 1;
+    while (j <= Math.sqrt(i) + 1) {
+      if (i % j === 0) {
+        if (j * j !== i) {
+          count += 2;
+        } else {
+          count++;
+        }
+      }
+      j++;
+    }
+    count % 2 === 0 ? (total += i) : (total -= i);
+  }
+
+  return total;
+}
+
+console.log(solution(13, 17));
+console.log(solution(24, 27));
