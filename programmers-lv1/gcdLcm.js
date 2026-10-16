@@ -1,9 +1,21 @@
-const gcd = (a, b) => (b === 0 ? a : gcd(b, a % b));
-
+/** NOTE:
+ * [x] 반복문 구조로 리펙토링하기
+ */
 function solution(n, m) {
-  const nmGcd = gcd(n, m);
-  const lcm = (n * m) / nmGcd;
-  return [nmGcd, lcm];
+  let a = n;
+  let b = m;
+
+  // 반복문을 이용한 유클리드 호제법 (최대공약수 구하기)
+  while (b > 0) {
+    let temp = b;
+    b = a % b;
+    a = temp;
+  }
+
+  const gcdVal = a;
+  const lcmVal = (n * m) / gcdVal;
+
+  return [gcdVal, lcmVal];
 }
 
 console.log(solution(3, 12));
