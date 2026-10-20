@@ -3,12 +3,10 @@ function solution(s) {
   const result = new Array(s.length).fill(-1);
 
   for (let i = 0; i < s.length; i++) {
-    if (alphabetArr[s[i].charCodeAt() - 97] !== -1) {
-      result[i] = i - alphabetArr[s[i].charCodeAt() - 97];
-      alphabetArr[s[i].charCodeAt() - 97] = i;
-    } else {
-      alphabetArr[s[i].charCodeAt() - 97] = i;
-    }
+    const code = s[i].charCodeAt() - 97;
+
+    result[i] = alphabetArr[code] === -1 ? -1 : i - alphabetArr[code];
+    alphabetArr[code] = i;
   }
   return result;
 }
