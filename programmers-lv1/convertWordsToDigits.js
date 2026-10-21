@@ -1,5 +1,6 @@
 function solution(s) {
-  const arr = [
+  // 배열의 인덱스와 영단어 순서가 일치
+  const numbers = [
     'zero',
     'one',
     'two',
@@ -12,9 +13,10 @@ function solution(s) {
     'nine',
   ];
 
-  for (let i = 0; i < arr.length; i++) {
-    s = s.replaceAll(arr[i], i);
-  }
+  numbers.forEach((word, index) => {
+    s = s.split(word).join(index);
+  });
+
   return Number(s);
 }
 
