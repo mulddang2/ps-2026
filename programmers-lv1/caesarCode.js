@@ -1,19 +1,26 @@
 function solution(s, n) {
-  const result = [];
+  return [...s]
+    .map((char) => {
+      if (char === ' ') return ' ';
 
-  [...s].map((char) => {
-    if (char === 'z' || char === 'Z') {
-      result.push(String.fromCharCode(char.charCodeAt() - 26 + n));
-    } else {
-      if (char === ' ') result.push(' ');
-      else result.push(String.fromCharCode(char.charCodeAt() + n));
-    }
-  });
+      const code = char.charCodeAt();
 
-  return result.join('');
+      // 소문자
+      if (code >= 97 && code <= 122) {
+        return String.fromCharCode(((code - 97 + n) % 26) + 97);
+      }
+
+      // 대문자
+      if (code >= 65 && code <= 90) {
+        return String.fromCharCode(((code - 65 + n) % 26) + 65);
+      }
+
+      return char;
+    })
+    .join('');
 }
 
-console.log(solution('Z', 25));
+console.log(solution('Y', 25));
 console.log(solution('z', 25));
 console.log(solution('a', 25));
 console.log(solution('a     B     z', 4));
