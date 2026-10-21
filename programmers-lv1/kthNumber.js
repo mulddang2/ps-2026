@@ -1,7 +1,16 @@
+/** NOTE:
+ * [x] 고차함수 미사용 버전으로 풀어보기
+ */
 function solution(array, commands) {
-  return commands.map(
-    ([a, b, c]) => array.slice(a - 1, b).sort((a, b) => a - b)[c - 1],
-  );
+  const answer = [];
+  for (let i = 0; i < commands.length; i++) {
+    const [start, end, k] = commands[i];
+
+    const slicedSorted = array.slice(start - 1, end).sort((a, b) => a - b);
+
+    answer.push(slicedSorted[k - 1]);
+  }
+  return answer;
 }
 
 console.log(
