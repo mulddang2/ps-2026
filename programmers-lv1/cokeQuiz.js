@@ -1,22 +1,15 @@
+/** NOTE:
+ * [x] 불필요하게 복잡한 변수 사용 -- 여러변수를 나눠 관리하다보니 로직이 복잡하고, 디버깅 시간 길어짐..
+ * [x] 무의미한 연산 및 잠재적 오류 있음 
+ */
 function solution(a, b, n) {
-  let unOpenedCoke = 0;
-  let serviceCoke = 0;
-  let togoCoke = 0;
-  let emptyBottle = n;
+  
   let answer = 0;
 
-  let curNum = n;
-  while (curNum >= a) {
-    togoCoke =
-      emptyBottle % a === 0 ? emptyBottle : Math.floor(emptyBottle / a) * a;
-    serviceCoke = Math.floor(togoCoke / a) * b;
-    if (serviceCoke % a === 0) {
-      unOpenedCoke += serviceCoke % a;
-    }
-    curNum = emptyBottle - togoCoke + serviceCoke - unOpenedCoke;
-    emptyBottle = curNum;
-
-    answer += serviceCoke + unOpenedCoke;
+  while(n >= a) {
+    const newCoke = Math.floor(n / a) * b;
+    answer += newCoke;
+    n = newCoke + (n % a);
   }
   return answer;
 }
