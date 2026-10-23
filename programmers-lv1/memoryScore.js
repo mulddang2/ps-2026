@@ -1,16 +1,17 @@
+/** NOTE:
+ * [x] 매번 indexOf 중복 사용으로 시간복잡도 불필요하게 증가 --> 해시 맵이나 객체 활용해보기
+ */
 function solution(name, yearning, photo) {
-  const result = [];
-
-  for (const p of photo) {
-    let score = 0;
-    for (let i = 0; i < p.length; i++) {
-      if (name.indexOf(p[i]) !== -1) {
-        score += yearning[name.indexOf(p[i])];
-      }
-    }
-    result.push(score);
+  // 1. 이름과 점수를 1:1로 매핑하는 맵 생성
+  const yearningMap = new Map();
+  for (let i = 0; i < name.length; i++) {
+    yearningMap.set(name[i], yearning[i]);
   }
-  return result;
+
+  // 2. 각 사진을 순회하며 점수 합산
+  return photo.map((p) =>
+    p.reduce((acc, cur) => acc + (yearningMap.get(cur) || 0), 0),
+  );
 }
 
 console.log(
