@@ -1,23 +1,18 @@
 function solution(number, limit, power) {
-  const divisor = [];
+  // 1부터 number까지 각 숫자의 약수 개수를 저장할 배열
+  const divisors = new Array(number + 1).fill(0);
+
+  // 배수 탐색을 통한 약수 개수 누적 ( i=약수의 역할, j=배수의 역할)
+  for (let i = 1; i <= number; i++) {
+    for (let j = i; j <= number; j += i) {
+      divisors[j]++;
+    }
+  }
+
   let total = 0;
   for (let i = 1; i <= number; i++) {
-    let count = 0;
-    if (i === 1) {
-      count++;
-      divisor.push(count);
-      continue;
-    }
-    for (let j = 1; j <= i; j++) {
-      if (i % j === 0) {
-        count++;
-      }
-    }
-    divisor.push(count);
-  }
-  for (let i = 0; i < divisor.length; i++) {
-    if (divisor[i] > limit) total += power;
-    else total += divisor[i];
+    const count = divisors[i];
+    total += count > limit ? power : count;
   }
   return total;
 }
