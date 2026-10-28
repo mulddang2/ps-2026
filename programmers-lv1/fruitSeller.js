@@ -1,15 +1,17 @@
+/** NOTE:
+ * [x] slice와 Math.min 제거하고 정렬된 배열의 인덱스를 직접 참조해서 메모리 사용량 최소화 하기
+ */
 function solution(k, m, score) {
-  // 1. 상자의 가격을 결정하는 요소 파악
-  // 2. 전체 사과 점수를 높은 점수부터 내림차순 정렬
-  // 3. 정렬된 사과들을 앞에서부터 m개씩 끊어서 하나의 상자로 만듦
+  // 1. 내림차순 정렬
   score.sort((a, b) => b - a);
+
   let price = 0;
-  for (let i = 0; i < score.length; i += m) {
-    let box = score.slice(i, i + m);
-    if (box.length === m) {
-      price += Math.min(...box) * m;
-    }
+
+  // 2. m개 단위로 건너뛰며 상자의 마지막 원소(최솟값) 바로 참조
+  for (let i = m - 1; i < score.length; i += m) {
+    price += score[i] * m;
   }
+
   return price;
 }
 
