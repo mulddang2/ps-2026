@@ -1,31 +1,24 @@
+/** NOTE:
+ * [x] 관리해야하는 상태변수 줄여보기
+ * [x] 마지막 글자 처리 조건 정리해보기
+ */
 function solution(s) {
-  let charCount = 0;
-  let diffCount = 0;
-  let char = '';
-  let result = 0;
+  let answer = 0;
+  let current = '';
+  let count = 0;
 
   for (let i = 0; i < s.length; i++) {
-    if (char === '') {
-      char = s[i];
-    }
-    if (char === s[i]) {
-      charCount++;
+    if (count === 0) {
+      current = s[i];
+      count = 1;
+      answer++;
+    } else if (current === s[i]) {
+      count++;
     } else {
-      diffCount++;
-    }
-
-    if (charCount === diffCount) {
-      result++;
-      char = '';
-      charCount = 0;
-      diffCount = 0;
-    }
-    // 더 읽을 글자가 없을 때
-    if (charCount !== diffCount && i === s.length - 1) {
-      result++;
+      count--;
     }
   }
-  return result;
+  return answer;
 }
 
 console.log(solution('banana'));
