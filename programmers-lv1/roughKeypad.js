@@ -1,32 +1,31 @@
 function solution(keymap, targets) {
-  // 문자를 키로 하고, 그 문자의 최소 누름 횟수를 값으로 저장한다.
-  const keyCountMap = new Map();
-  for (let i = 0; i < keymap.length; i++) {
-    for (let j = 0; j < keymap[i].length; j++) {
-      if (keyCountMap.has(keymap[i][j])) {
-        keyCountMap.set(
-          keymap[i][j],
-          Math.min(j + 1, keyCountMap.get(keymap[i][j])),
-        );
-      } else {
-        keyCountMap.set(keymap[i][j], j + 1);
+  // 알파벳 대문자 'A'~'Z'에 해당하는 최소 누름 횟수 저장
+  const charMinPress = new Array(26).fill(Infinity);
+
+  // 1. keymap 순회하며 각 문자의 최소 누름 횟수 기록
+  for (const key of keymap) {
+    for (let i = 0; i < key.length; i++) {
+      const idx = key.charCodeAt(i) - 65;
+      const pressCount = i + 1;
+      if (pressCount < charMinPress[idx]) {
+        charMinPress[idx] = pressCount;
       }
     }
   }
-  const result = new Array(targets.length);
-  for (let i = 0; i < targets.length; i++) {
-    let count = 0;
-    for (let j = 0; j < targets[i].length; j++) {
-      if (!keyCountMap.has(targets[i][j])) {
-        count = -1;
-        break;
-      } else {
-        count += keyCountMap.get(targets[i][j]);
+
+  // 2. targets를 순회하며 최소 누름 횟수 합산
+  return targets.map((target) => {
+    let total = 0;
+    for (let i = 0; i < target.length; i++) {
+      const idx = target.charCodeAt(i) - 65;
+      if (charMinPress[idx] === Infinity) {
+        return -1; // 만들 수 없는 문자 포함된 경우
       }
+      total += charMinPress[idx];
     }
-    result[i] = count;
-  }
-  return result;
+
+    return total;
+  });
 }
 
 // console.log(solution(['ABACD', 'BCEFD'], ['ABCD', 'AABB']));
