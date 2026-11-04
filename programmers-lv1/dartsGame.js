@@ -1,37 +1,37 @@
+/** NOTE:
+ * [x] 정규표현식 순회 방식 최적화
+ * [x] 배열 합산 연산 간소화 (reduce 삭제 -> 고정 인덱스 접근하여 개선)
+ */
+
 function solution(dartResult) {
+  const scores = [];
   const regex = /(\d{1,2})([SDT])([*#]?)/g;
-  const scoresArr = [];
-  const matches = [...dartResult.matchAll(regex)];
-  // idx 1 - 숫자, idx 2 - 보너스, idx 3 - 옵션
-  for (const match of matches) {
-    let number = Number(match[1]);
+  let match;
+
+  while ((match = regex.exec(dartResult)) !== null) {
+    let score = Number(match[1]);
     const bonus = match[2];
     const option = match[3];
 
-    // 보너스 까지 점수
-    let currentScore = 0;
-    if (bonus === 'S') {
-      currentScore = number ** 1;
-    } else if (bonus === 'D') {
-      currentScore = number ** 2;
+    if (bonus === 'D') {
+      score **= 2;
     } else if (bonus === 'T') {
-      currentScore = number ** 3;
+      score **= 3;
     }
 
-    scoresArr.push(currentScore);
-
-    // '*' 옵션에서 이전값 * 2, 첫번째는 첫번째원소만 *2
     if (option === '*') {
-      scoresArr[scoresArr.length - 1] *= 2; // 보너스 까지 계산한 현재 점수를 2배
-
-      if (scoresArr.length > 1) {
-        scoresArr[scoresArr.length - 2] *= 2; // 이전 원소가 있는 경우
+      score *= 2;
+      if (scores.length > 0) {
+        scores[scores.length - 1] *= 2;
       }
     } else if (option === '#') {
-      scoresArr[scoresArr.length - 1] *= -1;
+      score *= -1;
     }
+
+    scores.push(score);
   }
-  return scoresArr.reduce((acc, cur) => acc + cur, 0);
+
+  return scores[0] + scores[1] + scores[2];
 }
 
 console.log(solution('1S2D*3T'));
