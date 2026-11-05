@@ -1,24 +1,37 @@
+/** NOTE:
+ * [x] 상태 배열 기반 설계 -- 학생번호를 인덱스로 활용해서 고정 크기 상태 배열로 수정
+ * [x] 반복문 내, filter, includes 대신 인덱스 직접 참조로 변경
+ */
+
 function solution(n, lost, reserve) {
-  lost.sort((a, b) => a - b);
-  reserve.sort((a, b) => a - b);
-  // 1. 여벌 체육복을 가져왔지만, 도난당한 학생 걸러내기
-  let realReserve = reserve.filter((v) => !lost.includes(v));
-  let realLost = lost.filter((v) => !reserve.includes(v));
-  let answer = n - realLost.length;
+  // 1번 부터 n번 학생의 체육복 상태 관리하는 배열 생성 (0: 정상, -1: 도난, 1: 여벌)
+  // 가장 마지막 n의 뒷번호 확인을 고려해서 n + 2로 크기 생성
+  const students = new Array(n + 2).fill(0);
 
-  // 2. 남아있는 체육복 목록 - 빌려준 여벌 체육복은 바로 목록에서 제거
-  for (let i = 0; i < realLost.length; i++) {
-    const target = realLost[i];
+  lost.forEach((v) => (students[v] -= 1));
+  reserve.forEach((v) => (students[v] += 1));
 
-    // 앞 번호 확인
-    if (realReserve.includes(target - 1)) {
-      realReserve = realReserve.filter((v) => v !== target - 1);
-      answer++;
-    } else if (realReserve.includes(target + 1)) {
-      realReserve = realReserve.filter((v) => v !== target + 1);
+  // 번호 순으로 조회하며 탐욕법 적용
+  for (let i = 1; i <= n; i++) {
+    if (students[i] === -1) {
+      if (students[i - 1] === 1) {
+        students[i - 1] = 0;
+        students[i] = 0;
+      } else if (students[i + 1] === 1) {
+        students[i + 1] = 0;
+        students[i] = 0;
+      }
+    }
+  }
+
+  // 체육복을 소지한 학생 수 계산
+  let answer = 0;
+  for (let i = 1; i <= n; i++) {
+    if (students[i] >= 0) {
       answer++;
     }
   }
+
   return answer;
 }
 
