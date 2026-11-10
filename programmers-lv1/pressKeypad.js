@@ -1,76 +1,59 @@
+/** NOTE:
+ * [x] 좌표 계산 수식화 및 객체 조회 제거하기 -- String형변환 코드 제거해서 원시 타입 연산으로 통일
+ * [x] 문자열 불변성 최적화하기 -- 배열 push방식으로 변경하기
+ */
 function solution(numbers, hand) {
-  // 1, 4, 7 - 왼손
-  // 3, 6, 9 - 오른손
-  // 2, 5, 8, 0 - 현재 키패드 위치에서 더 가까운 손가락 -- 거리가 같다면 오른손 잡이는 오른손, 왼손 잡이는 왼손
-  let leftPosition = '*';
-  let rightPosition = '#';
-
-  const position = {
-    '1': [0, 0],
-    '2': [0, 1],
-    '3': [0, 2],
-    '4': [1, 0],
-    '5': [1, 1],
-    '6': [1, 2],
-    '7': [2, 0],
-    '8': [2, 1],
-    '9': [2, 2],
-    '*': [3, 0],
-    '0': [3, 1],
-    '#': [3, 2],
+  // 숫자를 입력받아 [행, 열] 좌표를 반환하는 함수
+  const getPos = (n) => {
+    if (n === '*') return [3, 0];
+    if (n === '#') return [3, 2];
+    if (n === 0) return [3, 1];
+    return [Math.floor((n - 1) / 3), (n - 1) % 3];
   };
 
-  let result = '';
+  let left = [3, 0]; // '*' 위치
+  let right = [3, 2]; // '#' 위치
+  const result = [];
 
-  for (let n = 0; n < numbers.length; n++) {
-    const num = String(numbers[n]);
-    const col = position[num][1];
+  for (let i = 0; i < numbers.length; i++) {
+    const num = numbers[i];
+    const pos = getPos(num);
+    const col = pos[1];
 
-    // 1, 4, 7인 경우
+    // 1, 4, 7 (왼쪽 열)
     if (col === 0) {
-      // 1, 4, 7, * => 왼쪽손
-      result += 'L';
-      leftPosition = num;
+      result.push('L');
+      left = pos;
     }
-    // 3, 6, 9인 경우
+    // 3, 6, 9 (오른쪽 열)
     else if (col === 2) {
-      result += 'R';
-      rightPosition = num;
-    } else {
-      const leftD =
-        Math.abs(position[num][0] - position[leftPosition][0]) +
-        Math.abs(position[num][1] - position[leftPosition][1]);
+      result.push('R');
+      right = pos;
+    }
+    // 2, 5, 8, 0 (가운데 열)
+    else {
+      const distL = Math.abs(pos[0] - left[0]) + Math.abs(pos[1] - left[1]);
+      const distR = Math.abs(pos[0] - right[0]) + Math.abs(pos[1] - right[1]);
 
-      const rightD =
-        Math.abs(position[num][0] - position[rightPosition][0]) +
-        Math.abs(position[num][1] - position[rightPosition][1]);
-
-      // 2, 8, 2, 5, 5
-
-      // left, right의 position
-      // 현재 위치
-      // num 위치에서 leftPosition / rightPosition 뺴기
-      // 5의 실제 위치 - 기존 왼손 위치
-
-      if (leftD < rightD) {
-        result += 'L';
-        leftPosition = num;
-      } else if (leftD > rightD) {
-        result += 'R';
-        rightPosition = num;
+      if (distL < distR) {
+        result.push('L');
+        left = pos;
+      } else if (distL > distR) {
+        result.push('R');
+        right = pos;
       } else {
-        // 거리가 같을 때
         if (hand === 'right') {
-          result += 'R';
-          rightPosition = num;
+          result.push('R');
+          right = pos;
         } else {
-          result += 'L';
-          leftPosition = num;
+          result.push('L');
+          left = pos;
         }
       }
     }
   }
-  return result;
+
+  return result.join('');
 }
 
 console.log(solution([1, 3, 4, 5, 8, 2, 1, 4, 5, 9, 5], 'right'));
