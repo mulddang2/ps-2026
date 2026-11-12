@@ -1,37 +1,34 @@
-// 시간을 총 분으로 변경
-const getMinutes = (time) => {
-  const hour = Math.floor(time / 100);
-  const minute = time % 100;
-  return hour * 60 + minute;
-};
+/** NOTE:
+ * [x] 중복 연산 수정 -- 루프 내부에서 getMinutes를 7번 호출, 이 부분을 루프 밖에서 미리 변환하기
+ *
+ */
+
+// 시각을 총 분으로 변환
+const toMinutes = (time) => Math.floor(time / 100) * 60 + (time % 100);
 
 function solution(schedules, timelogs, startday) {
-  // 1. 체크하기 - 이 날이 평일인가? (idx 6, 7 확인)
-  let count = 0;
+  let successCount = 0;
 
-  for (let i = 0; i < timelogs.length; i++) {
-    let isSuccess = true; // 모든 평일을 이 직원이 통과 했는지 플래그
+  for (let i = 0; i < schedules.length; i++) {
+    const targetLimitMinutes = toMinutes(schedules[i]) + 10;
+    let isAllOnTime = true;
 
-    for (let j = 0; j < timelogs[i].length; j++) {
-      // 1. j번째 날이 실제 무슨 요일인지 (1: 월 ~ 7: 일)
+    for (let j = 0; j < 7; j++) {
       const currentDay = ((startday - 1 + j) % 7) + 1;
-      // 2. 주말(토,일)이면 검사 제외
+
       if (currentDay === 6 || currentDay === 7) continue;
 
-      const targetTime = getMinutes(schedules[i]) + 10;
-      const actualTime = getMinutes(timelogs[i][j]);
-
-      if (targetTime < actualTime) {
-        isSuccess = false;
+      if (toMinutes(timelogs[i][j]) > targetLimitMinutes) {
+        isAllOnTime = false;
         break;
       }
     }
-    if (isSuccess) {
-      count++;
+
+    if (isAllOnTime) {
+      successCount++;
     }
   }
-
-  return count;
+  return successCount;
 }
 
 console.log(
